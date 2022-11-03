@@ -4,7 +4,7 @@ import youtubeImage from "./../../assets/images/youtube.jpeg"
 import batataGif from './../../assets/images/batata.gif'
 import { QuintaAulaItem } from '../../components/QuintaAulaItem/index'
 
-export function QuintaAula() { 
+export function QuintaAula() {
 
     const componentsFinded = [
         {
@@ -45,8 +45,8 @@ export function QuintaAula() {
                     componentsFinded.map(
                         component => {
                             return (
-                                <QuintaAulaItem 
-                                    item={component}/>
+                                <QuintaAulaItem
+                                    item={component} />
                             )
                         }
                     )

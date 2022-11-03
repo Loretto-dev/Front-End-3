@@ -1,7 +1,19 @@
-
 import './style.scss'
+import { CardLittle } from './../../components/LorettoStore/CardLittle/index'
+import { CardMedium } from '../../components/LorettoStore/CardMedium/index'
+import { Menu } from '../../components/LorettoStore/Menu'
 
 export function LorettoStore() { 
+
+    const menu = [
+        {
+            logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Steam_Logo.png',
+            home: 'Home',
+            store: 'Store',
+            library: 'Library',
+            comunity: 'Comunity'
+        }
+    ]
 
     const newGames = [
         {
@@ -116,27 +128,74 @@ export function LorettoStore() {
 
 
     return (
-        <div className="quarta-aula-component">
+        <div className="lorettostore-component">
 
             {/* Header */}
-            <header>
-                <img src='https://assets.nflxext.com/ffe/siteui/vlv3/79fe83d4-7ef6-4181-9439-46db72599559/f0c190ec-fb9d-4442-89f0-08c267b5aee0/BR-pt-20221017-popsignuptwoweeks-perspective_alpha_website_small.jpg'></img>
-            </header>
 
-            <h1 className='main-title'>Componentes identificados</h1>
+            {
+                menu.map(
+                    menu => {
+                        return (
+                            <Menu
+                              menu={menu}/>
+                        )
+                    }
+                )
+            },
 
             <ul className='components-finded'>
-
+            <h1 className='main-title'>New Games</h1>
                 {
-                    componentsFinded.map(
-                        component => {
+                    newGames.map(
+                        litle => {
                             return (
-                                <QuintaAulaItem 
-                                    item={component}/>
+                                <CardLittle
+                                    litle={litle}/>
                             )
                         }
                     )
-                }
+                },
+            </ul>
+            <h1 className='main-title'>HalloWeen Games</h1>
+            <ul className='components-finded'>
+                {
+                    
+                    halloweenGames.map(
+                        medium => {
+                            return (
+                                <CardMedium
+                                    medium={medium}/>
+                            )
+                        }
+                    )
+                },
+            </ul>
+            <h1 className='main-title'>Early Access Games</h1>
+            <ul className='components-finded'>
+                {
+                    earlyAccessGames.map(
+                        litle => {
+                            return (
+                                <CardLittle
+                                    litle={litle}/>
+                            )
+                        }
+                    )
+                },
+            </ul>
+            <h1 className='main-title'>Cheap Games</h1>
+            <ul className='components-finded'>
+                {
+                    
+                    cheapGames.map(
+                        medium => {
+                            return (
+                                <CardMedium
+                                    medium={medium}/>
+                            )
+                        }
+                    )
+                },
             </ul>
         </div>
 
