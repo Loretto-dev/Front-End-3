@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import './style.scss'
 import { SetimaAulaCardProduto } from "../../components/SetimaAulaCardProduto"
+import { useParams } from 'react-router-dom'
 
 export function Consoles() {
+    const { id } = useParams()
 
+    const[nomeProduto, setNomeProduto] = useState('')
+    const[precoProduto, setPrecoProduto] = useState('')
+    const[fotoProduto, setFotoProduto] = useState('')
+    const[formularioError, setFormularioError] = useState(false)
     const[allProducts, setAllProducts] = useState([
         {
             id: 1,
@@ -33,10 +39,36 @@ export function Consoles() {
     }
 
 
-    function addNewProduct() { 
+    function cadastrarProduto(eventoC){
 
-        setAllProducts([...allProducts, newProduct]) //substitui o push, junta os arrais em uma lista
+        eventoC.preventDefault()
+
+        const novoProdutoCadastrado = {
+            name: nomeProduto,
+            price: precoProduto,
+            picture: fotoProduto
+        } 
+
+        if(nomeProduto === '' || precoProduto === '') {
+
+            setFormularioError(true)
+
+        } else {
+    
+        setFormularioError(false)
+
+        setAllProducts([...allProducts, novoProdutoCadastrado])
+
+        setNomeProduto('')
+        precoProduto('')
+        fotoProduto('')
+
+        }
     }
+    
+    /*Evento: onSubmit - */
+    /*Evento: onChange - */
+    /*Evento: onClick - */
 
     return (
 
@@ -44,15 +76,41 @@ export function Consoles() {
 
             <div className="tittle-wrapper">
                 <h1>Produtos</h1>
-                <button onClick={addNewProduct}>Adicionar novo produto</button>
+                {/*<button onClick={addNewProduct}>Adicionar novo produto</button>*/}
             </div>
+            
+            <form className={formularioError ? 'form-error' : ''} onSubmit={event => cadastrarProduto(event)}> 
+                <div>
+                    <label htmlFor="nomeProduto">Nome</label>
+                    <input id="nomeProduto" type="text" value={nomeProduto} onChange={event => setNomeProduto(event.target.value)}/>
+                </div>
+
+                <div>
+                    <label htmlFor="precoProduto">Preço</label>
+                    <input id="precoProduto" type="text" value={precoProduto} onChange={event => setPrecoProduto(event.target.value)}/>
+                </div>
+
+                <div>
+                    <label htmlFor="fotoProduto">Foto</label>
+                    <input id="fotoProduto" type="text" value={fotoProduto} onChange={event => setFotoProduto(event.target.value)}/>
+                </div>
+
+                <button type="submit" >Cadastrar Produto</button>
+                <button type="reset" >Limpar Formulário</button>
+            </form>
+
+            {
+                formularioError ? (
+                    <span>O seu formulário contem erros</span>
+                ) : null
+            }
 
             <section className='products'>
                 {
                     allProducts.map(
                         product => {
                             return (
-                                <SetimaAulaCardProduto
+                                <SetimaAulaCardProduto //puxando os parametros desse component
                                     productData={product}
                                 />
                             )
